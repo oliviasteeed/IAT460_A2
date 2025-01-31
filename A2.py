@@ -218,19 +218,21 @@ axiom = "+F"
 
 
 
-# define L system grammar
+# define L system grammar with random amount of actions
 gen_grammar = {
-    'LSYSTEM': [["ACTION"]],
+    'LSYSTEM_F': [["ACTION"]],
+    'LSYSTEM_X': [["ACTION"]],
     'DELIMIT': [":"],
-    'AXIOM': ["F"],
-    'ACTION': ["F", "f", "-", "+"]
+    'AXIOM': ["F", "X"],
+    'ACTION': ["F", "f", "-", "+", "F", "F", "F", "F", "F", "F", "F", "X", "X"]
 }
 
-for i in range(random.randint(1,10)):
-    gen_grammar['LSYSTEM'][0].append("ACTION")
+for i in range(random.randint(5,20)):
+    gen_grammar['LSYSTEM_F'][0].append("ACTION")
+for i in range(random.randint(10,20)):
+    gen_grammar['LSYSTEM_X'][0].append("ACTION")
 
 # print(gen_grammar)
-
 
 def generate(symbol, grammar):
     if isinstance(symbol, str) and symbol in grammar:
@@ -240,33 +242,14 @@ def generate(symbol, grammar):
         return production
     return symbol
 
-rules_string = generate('LSYSTEM', gen_grammar)
-print(rules_string)
+# string of potential actions
+rules_string_f = generate('LSYSTEM_F', gen_grammar)
+rules_string_x = generate('LSYSTEM_X', gen_grammar)
 
 rules_dict = {}
-rules_dict[gen_grammar['AXIOM'][0]] = rules_string
+rules_dict[gen_grammar['AXIOM'][0]] = rules_string_f
+rules_dict[gen_grammar['AXIOM'][1]] = rules_string_x
 print(rules_dict)
-
-
-
-
-#returns all as list
-# def generate(symbol, grammar):
-#     result = []  # List to store the individual results
-#     if isinstance(symbol, str) and symbol in grammar:
-#         production = random.choice(grammar[symbol])  # Randomly choose a production
-#         if isinstance(production, list):
-#             for sym in production:
-#                 result.extend(generate(sym, grammar))  
-#         else:
-#             result.append(production)
-#     else:
-#         result.append(symbol) 
-#     return result
-
-
-
-# rules = {"F":"F+X-F"}
 
 
 iterations = random.randint(1, 8)
@@ -280,7 +263,7 @@ startColor = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 
 
 
 # make parameters into instructions
-# instructions = create_l_system(iterations, axiom, rules)
+instructions = create_l_system(iterations, axiom, rules_dict)
 
    
-# draw_l_system(instructions, angle, distance, startColor, amount, size)
+draw_l_system(instructions, angle, distance, startColor, amount, size)
