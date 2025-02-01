@@ -57,6 +57,12 @@ def setup_turtle(t, coords, speed, size):
         print("setting up turtle")
 
 
+## FUNCTION to write what the grammar is ## (make into function)
+tw = turtle.Turtle()
+setup_turtle(tw, (-600, -300), 13, 10)
+tw.pencolor("#FFFFFF")
+
+
 # FUNCTION to assign colour to pen
 def set_pen_color(c, t):
     t.pencolor(c[0], c[1], c[2])
@@ -90,7 +96,7 @@ def draw_l_system(instructions, angle, distance, color, amt, size):
         turtle = globals().get(f't{k}')  # Access turtle t1, t2, etc. dynamically
         print(f't{k}')
         set_pen_color((r, g, b), turtle)
-        setup_turtle(turtle, (random.randint(-300, 300), random.randint(-300, 300)), "fastest", size)
+        setup_turtle(turtle, (random.randint(-200, 200), random.randint(-200, 200)), "fastest", size)
 
     ## loop runs for each instruction character
     for cmd in instructions:
@@ -209,12 +215,12 @@ gen_grammar = {
     'LSYSTEM_X': [["ACTION"]],
     'DELIMIT': [":"],
     'AXIOM': ["F", "X"],
-    'ACTION': ["F", "f", "-", "+", "F", "F", "F", "F", "F", "F", "F", "X", "X"]
+    'ACTION': ["F", "f", "-", "+", "F", "F", "F", "X", "X"]
 }
 
-for i in range(random.randint(5,20)):
+for i in range(random.randint(5,15)):
     gen_grammar['LSYSTEM_F'][0].append("ACTION")
-for i in range(random.randint(10,20)):
+for i in range(random.randint(5,15)):
     gen_grammar['LSYSTEM_X'][0].append("ACTION")
 
 # print(gen_grammar)
@@ -241,7 +247,7 @@ print("rules:",rules_dict)
 
 
 # randomly generate l-system parameters
-axiom = ['AXIOM'][0]
+axiom = gen_grammar['AXIOM'][0]
 iterations = random.randint(1, 8)
 angle = random.randint(45, 90)
 distance = random.randint(5, 20)
@@ -250,6 +256,8 @@ distance = random.randint(5, 20)
 size = random.randint(1, 13)
 amount = random.randint(1, 9)
 startColor = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+tw.write(("rule: ",rules_dict, "axiom: ",axiom, "iterations: ",iterations, "angle: ",angle, "distance: ",distance), font=("Arial", 16, "normal"))
 
 # make parameters into instructions list
 instructions = create_l_system(iterations, axiom, rules_dict)
