@@ -72,6 +72,11 @@ def draw_l_system(instructions, angle, distance, color, amt, size):
     stack3 = []
     stack4 = []
     stack5 = []
+    stack6 = []
+    stack7 = []
+    stack8 = []
+    stack9 = []
+    stack10 = []
     
     i = 1   # increment amount
     rInc, gInc, bInc = True, True, True
@@ -195,26 +200,6 @@ def draw_l_system(instructions, angle, distance, color, amt, size):
 
 ## DRAWING
 
-axiom = "+F"
-# rules = {"F":"FF+FF+FF++"}
-
-# rules = {"F":"FF+F-F"} #looks like cityscape
-
-# rules = {"F":"F+F-F"} #looks like fractal-ish
-
-# rules = {"F":"F[+FFFFF]-F+F"} #looks like buildingish
-
-# rules = {
-#    "F":"F+X-F",
-#    "X":"F+[XXX]F-"
-#    } 
-# #looks like buildingish
-
-# rules = {
-#    "F":"+FX-FX",
-#    "X":"F+[XXX]F-"
-#    } 
-
 
 
 
@@ -249,21 +234,25 @@ rules_string_x = generate('LSYSTEM_X', gen_grammar)
 rules_dict = {}
 rules_dict[gen_grammar['AXIOM'][0]] = rules_string_f
 rules_dict[gen_grammar['AXIOM'][1]] = rules_string_x
-print(rules_dict)
+print("rules:",rules_dict)
 
 
+
+
+
+# randomly generate l-system parameters
+axiom = ['AXIOM'][0]
 iterations = random.randint(1, 8)
 angle = random.randint(45, 90)
 distance = random.randint(5, 20)
 
+# randomly generate turtle parameters
 size = random.randint(1, 13)
 amount = random.randint(1, 9)
-# generate startcolor
 startColor = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
-
-# make parameters into instructions
+# make parameters into instructions list
 instructions = create_l_system(iterations, axiom, rules_dict)
 
-   
+# draw the randomly generated l-systems
 draw_l_system(instructions, angle, distance, startColor, amount, size)
