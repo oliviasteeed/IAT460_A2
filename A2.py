@@ -111,7 +111,6 @@ def draw_l_system(instructions, angle, distance, color, amt, size):
     # set up turtles
     for k in range(amt):
         turtle = globals().get(f't{k}')  #access turtles t1, t2, etc dynamically
-        print(f't{k}')
         set_pen_color((r, g, b), turtle)
         setup_turtle(turtle, (random.randint(-200, 200), random.randint(-200, 200)), "fastest", size)
 
@@ -257,15 +256,15 @@ rules_dict[gen_grammar['AXIOM'][1]] = rules_string_x
 axiom = gen_grammar['AXIOM'][0]
 iterations = random.randint(1, 8)
 angle = random.randint(45, 90)
-distance = random.randint(5, 20)
+distance = random.randint(5, 30)
 
 # randomly generate turtle parameters (within specified ranges)
-size = random.randint(1, 13)
+size = random.randint(1, 30)
 amount = random.randint(1, 9)
 startColor = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 # write l-system to the screen (this is interesting)
-tw.write(("rule: ",rules_dict, "axiom: ",axiom, "iterations: ",iterations, "angle: ",angle, "distance: ",distance), font=("Arial", 16, "normal"))
+tw.write(f"rule: {rules_dict} \naxiom: {axiom} \niterations: {iterations} \nangle: {angle} \ndistance: {distance}", font=("Helvetica", 16, "normal"))
 
 # make generated parameters into instructions list
 instructions = create_l_system(iterations, axiom, rules_dict)
